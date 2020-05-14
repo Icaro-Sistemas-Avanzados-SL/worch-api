@@ -16,6 +16,7 @@ class CreateChallengesTable extends Migration
         Schema::create('challenges', function (Blueprint $table) {
             $table->id();
             $table->foreignId('category_id')->references('id')->on('categories');
+            $table->foreignId('user_id')->references('id')->on('users');
             $table->string('title');
             $table->mediumText('description');
             $table->integer('difficulty');
@@ -23,6 +24,7 @@ class CreateChallengesTable extends Migration
             $table->double('lng');
             $table->string('time');
             $table->timestamps();
+            $table->timestamp('deleted_at')->nullable();
         });
     }
 

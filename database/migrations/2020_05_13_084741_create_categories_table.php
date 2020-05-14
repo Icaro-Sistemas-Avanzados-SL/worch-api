@@ -19,6 +19,7 @@ class CreateCategoriesTable extends Migration
             $table->mediumText('description');
             $table->string('image', 255);
             $table->timestamps();
+            $table->timestamp('deleted_at')->nullable();
         });
     }
 

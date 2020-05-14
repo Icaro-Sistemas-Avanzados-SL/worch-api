@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "28cbdcaf4dd22f42ec360ba23b1c63a0",
+    "content-hash": "5d8be8bfe6a7662c9fd8f227fb4d5b44",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -641,6 +641,56 @@
             "time": "2020-02-13T22:36:52+00:00"
         },
         {
+            "name": "ejarnutowski/laravel-api-key",
+            "version": "1.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ejarnutowski/laravel-api-key.git",
+                "reference": "81ac0a4732d1a6b515f2d8ea6f4419aed7451393"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ejarnutowski/laravel-api-key/zipball/81ac0a4732d1a6b515f2d8ea6f4419aed7451393",
+                "reference": "81ac0a4732d1a6b515f2d8ea6f4419aed7451393",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5.9"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "dont-discover": [
+                        "ejarnutowski/laravel-api-key"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Ejarnutowski\\LaravelApiKey\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Elliott Jarnutowski",
+                    "email": "e@jarno.co"
+                }
+            ],
+            "description": "Authorize requests to your Laravel application with API keys",
+            "keywords": [
+                "Api Key",
+                "Authentication",
+                "api",
+                "authorization",
+                "laravel"
+            ],
+            "time": "2019-09-16T20:19:02+00:00"
+        },
+        {
             "name": "fideloper/proxy",
             "version": "4.3.0",
             "source": {
@@ -1067,6 +1117,43 @@
                 "view"
             ],
             "time": "2020-04-24T09:16:29+00:00"
+        },
+        {
+            "name": "infyomlabs/swagger-generator",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/InfyOmLabs/swagger-generator.git",
+                "reference": "06eaf5934215c0fec386595c2896b2114ae15eb4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/InfyOmLabs/swagger-generator/zipball/06eaf5934215c0fec386595c2896b2114ae15eb4",
+                "reference": "06eaf5934215c0fec386595c2896b2114ae15eb4",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5.9"
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mitul Golakiya",
+                    "email": "me@mitul.me"
+                }
+            ],
+            "description": "Swagger Generator for InfyOm Laravel Generator",
+            "keywords": [
+                "generator",
+                "laravel",
+                "swagger",
+                "templates"
+            ],
+            "time": "2017-11-21T09:25:50+00:00"
         },
         {
             "name": "laracasts/flash",
@@ -5916,7 +6003,8 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "infyomlabs/laravel-generator": 20,
-        "infyomlabs/adminlte-templates": 20
+        "infyomlabs/adminlte-templates": 20,
+        "infyomlabs/swagger-generator": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,

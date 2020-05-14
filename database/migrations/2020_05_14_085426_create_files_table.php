@@ -20,6 +20,7 @@ class CreateFilesTable extends Migration
             $table->foreignId('category_id')->nullable()->references('id')->on('categories');
             $table->string('url');
             $table->timestamps();
+            $table->timestamp('deleted_at')->nullable();
         });
     }
 
