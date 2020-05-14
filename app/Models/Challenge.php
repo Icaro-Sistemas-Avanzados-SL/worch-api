@@ -79,9 +79,10 @@ class Challenge extends Model
     use SoftDeletes;
 
     public $table = 'challenges';
-    
+
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
+    protected $with = ['category'];
 
 
     protected $dates = ['deleted_at'];
