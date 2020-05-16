@@ -79,7 +79,9 @@ class Challenge extends Model
     use SoftDeletes;
 
     public $table = 'challenges';
-    
+
+    protected $with = ['parent', 'children', 'files', 'user', 'category'];
+
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
 
@@ -91,6 +93,7 @@ class Challenge extends Model
     public $fillable = [
         'category_id',
         'user_id',
+        'parent_id',
         'title',
         'description',
         'difficulty',
@@ -108,6 +111,7 @@ class Challenge extends Model
         'id' => 'integer',
         'category_id' => 'integer',
         'user_id' => 'integer',
+        'parent_id' => 'integer',
         'title' => 'string',
         'description' => 'string',
         'difficulty' => 'integer',
@@ -124,6 +128,7 @@ class Challenge extends Model
     public static $rules = [
         'category_id' => 'required',
         'user_id' => 'required',
+        'parent_id' => 'required',
         'title' => 'required',
         'description' => 'required',
         'difficulty' => 'required',
@@ -145,7 +150,7 @@ class Challenge extends Model
      **/
     public function user()
     {
-        return $this->belongsTo(\App\Models\User::class, 'user_id');
+        return $this->belongsTo(\App\User::class, 'user_id');
     }
 
     /**
@@ -154,5 +159,13 @@ class Challenge extends Model
     public function files()
     {
         return $this->hasMany(\App\Models\File::class, 'challenge_id');
+    }
+
+    public function parent() {
+        return $this->belongsTo('App\Models\Challenge', 'parent_id')->without('children');
+    }
+
+    public function children() {
+        return $this->hasMany('App\Models\Challenge', 'parent_id')->without('parent'); //get all subs. NOT RECURSIVE
     }
 }

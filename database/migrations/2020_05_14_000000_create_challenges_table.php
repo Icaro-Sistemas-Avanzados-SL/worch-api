@@ -17,6 +17,7 @@ class CreateChallengesTable extends Migration
             $table->id();
             $table->foreignId('category_id')->references('id')->on('categories');
             $table->foreignId('user_id')->references('id')->on('users');
+            $table->foreignId('parent_id')->nullable()->references('id')->on('challenges');
             $table->string('title');
             $table->mediumText('description');
             $table->integer('difficulty');
