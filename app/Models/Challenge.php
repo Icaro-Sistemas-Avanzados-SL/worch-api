@@ -80,7 +80,7 @@ class Challenge extends Model
 
     public $table = 'challenges';
 
-    protected $with = ['parent', 'children', 'files', 'user', 'category'];
+    protected $with = ['category', 'files', 'parent'];
 
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
@@ -95,6 +95,8 @@ class Challenge extends Model
         'user_id',
         'parent_id',
         'title',
+        'slug',
+        'address',
         'description',
         'difficulty',
         'lat',
@@ -113,6 +115,8 @@ class Challenge extends Model
         'user_id' => 'integer',
         'parent_id' => 'integer',
         'title' => 'string',
+        'slug' => 'string',
+        'address' => 'string',
         'description' => 'string',
         'difficulty' => 'integer',
         'lat' => 'float',
@@ -128,13 +132,15 @@ class Challenge extends Model
     public static $rules = [
         'category_id' => 'required',
         'user_id' => 'required',
-        'parent_id' => 'required',
+        'parent_id' => 'nullable',
         'title' => 'required',
+        'slug' => 'nullable',
+        'address' => 'nullable',
         'description' => 'required',
         'difficulty' => 'required',
         'lat' => 'required',
         'lng' => 'required',
-        'time' => 'required'
+        'time' => 'nullable'
     ];
 
     /**
@@ -142,7 +148,7 @@ class Challenge extends Model
      **/
     public function category()
     {
-        return $this->belongsTo(\App\Models\Category::class, 'category_id');
+        return $this->belongsTo(\App\Models\Category::class, 'category_id')->without('challenges');
     }
 
     /**
@@ -150,7 +156,7 @@ class Challenge extends Model
      **/
     public function user()
     {
-        return $this->belongsTo(\App\User::class, 'user_id');
+        return $this->belongsTo(\App\User::class, 'user_id')->without('challenges');
     }
 
     /**
@@ -158,7 +164,7 @@ class Challenge extends Model
      **/
     public function files()
     {
-        return $this->hasMany(\App\Models\File::class, 'challenge_id');
+        return $this->hasMany(\App\Models\File::class, 'challenge_id')->without('challenge');
     }
 
     public function parent() {

@@ -8,6 +8,8 @@ use App\Models\Challenge;
 use App\Repositories\ChallengeRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Response;
 
 /**
@@ -110,7 +112,18 @@ class ChallengeAPIController extends AppBaseController
     public function store(CreateChallengeAPIRequest $request)
     {
         $input = $request->all();
-
+        $input['slug'] =  Str::slug($input['title'] , '-');
+        if(Challenge::where('slug', $input['slug'])->first()) {
+            $input['slug'] = $input['slug'].'-2';
+        }
+        if(!empty($input['file'])) {
+            $imageName = $input['file']['name'];
+            $data = $input['file']['base64'];
+            list($type, $data) = explode(';', $data);
+            list(, $data)      = explode(',', $data);
+            Storage::disk('public')->put('challenges/'. $input['slug'].'/'.$imageName, base64_decode($data));
+            $input['file'] =  'challenges/'. $input['slug'].'/'.$imageName;
+        }
         $challenge = $this->challengeRepository->create($input);
 
         return $this->sendResponse($challenge->toArray(), 'Challenge saved successfully');
