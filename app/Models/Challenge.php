@@ -28,6 +28,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *          format="int32"
  *      ),
  *      @SWG\Property(
+ *          property="parent_id",
+ *          description="parent_id",
+ *          type="integer",
+ *          format="int32"
+ *      ),
+ *      @SWG\Property(
  *          property="title",
  *          description="title",
  *          type="string"
@@ -71,6 +77,22 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *          description="updated_at",
  *          type="string",
  *          format="date-time"
+ *      ),
+ *      @SWG\Property(
+ *          property="deleted_at",
+ *          description="deleted_at",
+ *          type="string",
+ *          format="date-time"
+ *      ),
+ *      @SWG\Property(
+ *          property="address",
+ *          description="address",
+ *          type="string"
+ *      ),
+ *      @SWG\Property(
+ *          property="slug",
+ *          description="slug",
+ *          type="string"
  *      )
  * )
  */
@@ -95,13 +117,13 @@ class Challenge extends Model
         'user_id',
         'parent_id',
         'title',
-        'slug',
-        'address',
         'description',
         'difficulty',
         'lat',
         'lng',
-        'time'
+        'time',
+        'address',
+        'slug'
     ];
 
     /**
@@ -115,13 +137,13 @@ class Challenge extends Model
         'user_id' => 'integer',
         'parent_id' => 'integer',
         'title' => 'string',
-        'slug' => 'string',
-        'address' => 'string',
         'description' => 'string',
         'difficulty' => 'integer',
         'lat' => 'float',
         'lng' => 'float',
-        'time' => 'string'
+        'time' => 'string',
+        'address' => 'string',
+        'slug' => 'string'
     ];
 
     /**
@@ -132,15 +154,12 @@ class Challenge extends Model
     public static $rules = [
         'category_id' => 'required',
         'user_id' => 'required',
-        'parent_id' => 'nullable',
         'title' => 'required',
-        'slug' => 'nullable',
-        'address' => 'nullable',
         'description' => 'required',
         'difficulty' => 'required',
         'lat' => 'required',
         'lng' => 'required',
-        'time' => 'nullable'
+        'slug' => 'required'
     ];
 
     /**
@@ -156,7 +175,15 @@ class Challenge extends Model
      **/
     public function user()
     {
-        return $this->belongsTo(\App\User::class, 'user_id')->without('challenges');
+        return $this->belongsTo(\App\Models\User::class, 'user_id')->without('challenges');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     **/
+    public function favourites()
+    {
+        return $this->hasMany(\App\Models\Favourite::class, 'challenge_id')->without('challenge');
     }
 
     /**
@@ -165,6 +192,14 @@ class Challenge extends Model
     public function files()
     {
         return $this->hasMany(\App\Models\File::class, 'challenge_id')->without('challenge');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     **/
+    public function ratings()
+    {
+        return $this->hasMany(\App\Models\Rating::class, 'challenge_id')->without('challenge');
     }
 
     public function parent() {

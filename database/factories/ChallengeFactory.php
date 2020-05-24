@@ -12,7 +12,10 @@ $factory->define(Challenge::class, function (Faker $faker) {
             return App\Models\Category::inRandomOrder()->first()->id;
         },
         'user_id' => function(){
-            return App\User::inRandomOrder()->first()->id;
+            return App\Models\User::inRandomOrder()->first()->id;
+        },
+        'parent_id' =>function(){
+            return App\Models\Challenge::inRandomOrder()->first()->id;
         },
         'title' => $faker->word,
         'description' => $faker->text,
@@ -20,7 +23,7 @@ $factory->define(Challenge::class, function (Faker $faker) {
         'lat' => $faker->latitude,
         'lng' => $faker->longitude,
         'time' => $faker->time(),
-        'created_at' => $faker->date('Y-m-d H:i:s'),
-        'updated_at' => $faker->date('Y-m-d H:i:s')
+        'address' => $faker->address,
+        'slug' => $faker->slug
     ];
 });

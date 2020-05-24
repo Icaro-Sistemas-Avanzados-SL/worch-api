@@ -2,32 +2,26 @@
 
 namespace App\Repositories;
 
-use App\Models\Challenge;
+use App\Models\User;
 use App\Repositories\BaseRepository;
 
 /**
- * Class ChallengeRepository
+ * Class UserRepository
  * @package App\Repositories
- * @version May 23, 2020, 3:09 pm UTC
+ * @version May 23, 2020, 3:14 pm UTC
 */
 
-class ChallengeRepository extends BaseRepository
+class UserRepository extends BaseRepository
 {
     /**
      * @var array
      */
     protected $fieldSearchable = [
-        'category_id',
-        'user_id',
-        'parent_id',
-        'title',
-        'description',
-        'difficulty',
-        'lat',
-        'lng',
-        'time',
-        'address',
-        'slug'
+        'name',
+        'email',
+        'email_verified_at',
+        'password',
+        'remember_token'
     ];
 
     /**
@@ -45,6 +39,6 @@ class ChallengeRepository extends BaseRepository
      **/
     public function model()
     {
-        return Challenge::class;
+        return User::class;
     }
 }

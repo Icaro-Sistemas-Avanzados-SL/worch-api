@@ -12,43 +12,7 @@
         "inView": false
     },
     {
-        "name": "category_id",
-        "dbType": "bigInteger,false,true",
-        "htmlType": null,
-        "validations": "required",
-        "searchable": true,
-        "fillable": true,
-        "primary": false,
-        "inForm": true,
-        "inIndex": true,
-        "inView": true
-    },
-    {
-        "name": "user_id",
-        "dbType": "bigInteger,false,true",
-        "htmlType": null,
-        "validations": "required",
-        "searchable": true,
-        "fillable": true,
-        "primary": false,
-        "inForm": true,
-        "inIndex": true,
-        "inView": true
-    },
-    {
-        "name": "parent_id",
-        "dbType": "bigInteger,false,true",
-        "htmlType": null,
-        "validations": null,
-        "searchable": true,
-        "fillable": true,
-        "primary": false,
-        "inForm": true,
-        "inIndex": true,
-        "inView": true
-    },
-    {
-        "name": "title",
+        "name": "name",
         "dbType": "string,255",
         "htmlType": "text",
         "validations": "required",
@@ -60,9 +24,9 @@
         "inView": true
     },
     {
-        "name": "description",
-        "dbType": "text,16777215",
-        "htmlType": "textarea",
+        "name": "email",
+        "dbType": "string,255",
+        "htmlType": "text",
         "validations": "required",
         "searchable": true,
         "fillable": true,
@@ -72,9 +36,21 @@
         "inView": true
     },
     {
-        "name": "difficulty",
-        "dbType": "integer,false",
-        "htmlType": null,
+        "name": "email_verified_at",
+        "dbType": "datetime:nullable",
+        "htmlType": "date",
+        "validations": null,
+        "searchable": true,
+        "fillable": true,
+        "primary": false,
+        "inForm": true,
+        "inIndex": true,
+        "inView": true
+    },
+    {
+        "name": "password",
+        "dbType": "string,255",
+        "htmlType": "text",
         "validations": "required",
         "searchable": true,
         "fillable": true,
@@ -84,32 +60,8 @@
         "inView": true
     },
     {
-        "name": "lat",
-        "dbType": "float,10,0",
-        "htmlType": null,
-        "validations": "required",
-        "searchable": true,
-        "fillable": true,
-        "primary": false,
-        "inForm": true,
-        "inIndex": true,
-        "inView": true
-    },
-    {
-        "name": "lng",
-        "dbType": "float,10,0",
-        "htmlType": null,
-        "validations": "required",
-        "searchable": true,
-        "fillable": true,
-        "primary": false,
-        "inForm": true,
-        "inIndex": true,
-        "inView": true
-    },
-    {
-        "name": "time",
-        "dbType": "string,255:nullable",
+        "name": "remember_token",
+        "dbType": "string,100:nullable",
         "htmlType": "text",
         "validations": null,
         "searchable": true,
@@ -156,47 +108,23 @@
         "inView": false
     },
     {
-        "name": "address",
-        "dbType": "string,255:nullable",
-        "htmlType": "text",
-        "validations": null,
-        "searchable": true,
-        "fillable": true,
-        "primary": false,
-        "inForm": true,
-        "inIndex": true,
-        "inView": true
-    },
-    {
-        "name": "slug",
-        "dbType": "string,255",
-        "htmlType": "text",
-        "validations": "required",
-        "searchable": true,
-        "fillable": true,
-        "primary": false,
-        "inForm": true,
-        "inIndex": true,
-        "inView": true
+        "type": "relation",
+        "relation": "1tm,Challenge,user_id"
     },
     {
         "type": "relation",
-        "relation": "mt1,Category,category_id"
+        "relation": "1tm,Favourite,user_id"
     },
     {
         "type": "relation",
-        "relation": "mt1,User,user_id"
+        "relation": "1tm,Follower,followed_id"
     },
     {
         "type": "relation",
-        "relation": "1tm,Favourite,challenge_id"
+        "relation": "1tm,Follower,follower_id"
     },
     {
         "type": "relation",
-        "relation": "1tm,File,challenge_id"
-    },
-    {
-        "type": "relation",
-        "relation": "1tm,Rating,challenge_id"
+        "relation": "1tm,Rating,user_id"
     }
 ]

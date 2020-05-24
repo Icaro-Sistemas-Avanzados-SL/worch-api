@@ -8,11 +8,14 @@ use Faker\Generator as Faker;
 $factory->define(File::class, function (Faker $faker) {
 
     return [
-        'type' => $faker->word,
-        'challenge_id' => $faker->word,
-        'category_id' => $faker->word,
-        'url' => $faker->file(),
-        'created_at' => $faker->date('Y-m-d H:i:s'),
-        'updated_at' => $faker->date('Y-m-d H:i:s')
+        'type' => $faker->randomElement(['image', 'video']),
+        'category_id' =>function(){
+            return App\Models\Category::inRandomOrder()->first()->id;
+        },
+        'challenge_id' => function(){
+            return App\Models\Challenge::inRandomOrder()->first()->id;
+        },
+        'url' => $faker->imageUrl(),
+
     ];
 });

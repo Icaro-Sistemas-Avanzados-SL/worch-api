@@ -24,3 +24,11 @@ Route::resource('categories', 'CategoryAPIController');
 Route::resource('challenges', 'ChallengeAPIController');
 
 Route::resource('files', 'FileAPIController');
+
+Route::resource('followers', 'FollowerAPIController');
+
+Route::resource('favourites', 'FavouritesAPIController');
+
+Route::resource('ratings', 'RatingAPIController');
+
+Route::resource('users', 'UserAPIController');

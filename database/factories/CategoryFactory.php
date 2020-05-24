@@ -8,10 +8,9 @@ use Faker\Generator as Faker;
 $factory->define(Category::class, function (Faker $faker) {
 
     return [
-        'name' => $faker->word,
+        'name' => $faker->sentence(2),
         'description' => $faker->text,
-        'image' => $faker->word,
-        'created_at' => $faker->date('Y-m-d H:i:s'),
-        'updated_at' => $faker->date('Y-m-d H:i:s')
+        'image' => $faker->imageUrl(),
+
     ];
 });
