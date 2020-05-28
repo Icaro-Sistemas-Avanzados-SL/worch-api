@@ -63,10 +63,11 @@ class Rating extends Model
     use SoftDeletes;
 
     public $table = 'ratings';
-    
+
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
 
+    protected $with = ['challenge', 'user'];
 
     protected $dates = ['deleted_at'];
 
@@ -109,7 +110,7 @@ class Rating extends Model
      **/
     public function challenge()
     {
-        return $this->belongsTo(\App\Models\Challenge::class, 'challenge_id');
+        return $this->belongsTo(\App\Models\Challenge::class, 'challenge_id')->without('ratings');
     }
 
     /**
@@ -117,6 +118,6 @@ class Rating extends Model
      **/
     public function user()
     {
-        return $this->belongsTo(\App\Models\User::class, 'user_id');
+        return $this->belongsTo(\App\Models\User::class, 'user_id')->without('ratings');
     }
 }

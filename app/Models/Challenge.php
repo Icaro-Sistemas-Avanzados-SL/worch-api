@@ -102,7 +102,7 @@ class Challenge extends Model
 
     public $table = 'challenges';
 
-    protected $with = ['category', 'files', 'parent'];
+    protected $with = ['category', 'files', 'parent', 'user'];
 
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
@@ -158,9 +158,17 @@ class Challenge extends Model
         'description' => 'required',
         'difficulty' => 'required',
         'lat' => 'required',
-        'lng' => 'required',
-        'slug' => 'required'
+        'lng' => 'required'
     ];
+
+    public $appends = ['rate'];
+
+
+    public function getRateAttribute()
+    {
+
+        return $this->ratings->avg('rate');
+    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

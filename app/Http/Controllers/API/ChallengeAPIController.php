@@ -116,15 +116,16 @@ class ChallengeAPIController extends AppBaseController
         if(Challenge::where('slug', $input['slug'])->first()) {
             $input['slug'] = $input['slug'].'-2';
         }
+        $challenge = $this->challengeRepository->create($input);
         if(!empty($input['file'])) {
-            $imageName = $input['file']['name'];
-            $data = $input['file']['base64'];
+            $imageName = $input['slug'];
+            $data = $input['file'];
             list($type, $data) = explode(';', $data);
             list(, $data)      = explode(',', $data);
             Storage::disk('public')->put('challenges/'. $input['slug'].'/'.$imageName, base64_decode($data));
             $input['file'] =  'challenges/'. $input['slug'].'/'.$imageName;
         }
-        $challenge = $this->challengeRepository->create($input);
+
 
         return $this->sendResponse($challenge->toArray(), 'Challenge saved successfully');
     }
