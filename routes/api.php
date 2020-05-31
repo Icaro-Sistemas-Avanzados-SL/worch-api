@@ -32,3 +32,7 @@ Route::resource('favourites', 'FavouritesAPIController');
 Route::resource('ratings', 'RatingAPIController');
 
 Route::resource('users', 'UserAPIController');
+
+Route::post('login','AuthAPIController@login');
+
+Route::post('check','AuthAPIController@checkLogin');

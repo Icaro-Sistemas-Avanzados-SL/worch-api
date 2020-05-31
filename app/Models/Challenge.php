@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Eloquent as Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\DB;
+use function foo\func;
 
 /**
  * @SWG\Definition(
@@ -216,5 +218,34 @@ class Challenge extends Model
 
     public function children() {
         return $this->hasMany('App\Models\Challenge', 'parent_id')->without('parent'); //get all subs. NOT RECURSIVE
+    }
+
+    public function scopeFollowed($query, $user){
+        if($user) {
+            $query->whereHas('user', function($q) use($user){
+                $q->whereHas('follower1s', function ($query) use($user) {
+                    $query->where('followed_id', $user);
+                });
+            });
+        }
+    }
+
+    public function scopeNear($query, $latitude, $longitude)
+    {
+        if($latitude) {
+            $distance = 100;
+            if ($latitude) {
+                return $query->whereRaw("
+       ST_Distance_Sphere(
+            point(lng, lat),
+            point(?, ?)
+        ) * .000621371192 < ?
+    ", [
+                    $longitude,
+                    $latitude,
+                    $distance
+                ]);
+            }
+        }
     }
 }

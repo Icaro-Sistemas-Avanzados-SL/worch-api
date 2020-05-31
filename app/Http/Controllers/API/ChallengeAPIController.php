@@ -65,8 +65,11 @@ class ChallengeAPIController extends AppBaseController
             $request->except(['skip', 'limit']),
             $request->get('skip'),
             $request->get('limit'),
-            $request->perPage
+            $request->perPage,
+            true
         );
+
+        $challenges = $challenges->near($request->lat, $request->lng)->followed($request->user_id)->paginate(10);
 
         return $this->sendResponse($challenges->toArray(), 'Challenges retrieved successfully');
     }
@@ -122,8 +125,8 @@ class ChallengeAPIController extends AppBaseController
             $data = $input['file'];
             list($type, $data) = explode(';', $data);
             list(, $data)      = explode(',', $data);
-            Storage::disk('public')->put('challenges/'. $input['slug'].'/'.$imageName, base64_decode($data));
-            $input['file'] =  'challenges/'. $input['slug'].'/'.$imageName;
+            Storage::disk('public')->put('challenges/'.$imageName.'.jpeg', base64_decode($data));
+            $input['file'] =  'challenges/'.$imageName.'.jpeg';
         }
 
 
