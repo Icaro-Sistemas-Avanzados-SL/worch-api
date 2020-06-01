@@ -23,8 +23,6 @@ class ChallengeRepository extends BaseRepository
         'title',
         'description',
         'difficulty',
-        'lat',
-        'lng',
         'time',
         'address',
         'slug'

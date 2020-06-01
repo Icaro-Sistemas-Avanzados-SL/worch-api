@@ -234,18 +234,12 @@ class Challenge extends Model
     {
         if($latitude) {
             $distance = 100;
-            if ($latitude) {
-                return $query->whereRaw("
-       ST_Distance_Sphere(
-            point(lng, lat),
-            point(?, ?)
-        ) * .000621371192 < ?
-    ", [
+            return $query->whereRaw("ST_Distance_Sphere(point(lng, lat),point(?, ?)) * .000621371192 < ?",
+                [
                     $longitude,
                     $latitude,
                     $distance
                 ]);
-            }
         }
     }
 }

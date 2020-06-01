@@ -8,6 +8,7 @@ use App\Models\Challenge;
 use App\Repositories\ChallengeRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Response;
@@ -68,8 +69,7 @@ class ChallengeAPIController extends AppBaseController
             $request->perPage,
             true
         );
-
-        $challenges = $challenges->near($request->lat, $request->lng)->followed($request->user_id)->paginate(10);
+        $challenges = $challenges->near($request->lat, $request->lng)->followed($request->userId)->paginate($request->perPage);
 
         return $this->sendResponse($challenges->toArray(), 'Challenges retrieved successfully');
     }
