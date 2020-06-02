@@ -36,3 +36,10 @@ Route::resource('users', 'UserAPIController');
 Route::post('login','AuthAPIController@login');
 
 Route::post('check','AuthAPIController@checkLogin');
+
+
+Route::resource('notifications', 'NotificationAPIController');
+
+Route::resource('conversations', 'ConversationAPIController');
+
+Route::resource('messages', 'MessageAPIController');
