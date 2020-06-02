@@ -229,6 +229,16 @@ class UserAPIController extends AppBaseController
         /** @var User $user */
         $user = $this->userRepository->find($id);
 
+        $input['password'] = bcrypt($input['password']);
+        if(!empty($input['avatar'])) {
+            $imageName = Str::slug($user['name'] , '-');
+            $data = $input['avatar'];
+            list($type, $data) = explode(';', $data);
+            list(, $data)      = explode(',', $data);
+            Storage::disk('public')->put('users/'.$imageName.'.jpeg', base64_decode($data));
+            $input['avatar'] =  'users/'.$imageName.'.jpeg';
+        }
+
         if (empty($user)) {
             return $this->sendError('User not found');
         }
