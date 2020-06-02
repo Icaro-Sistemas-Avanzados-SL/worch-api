@@ -112,7 +112,7 @@ class UserAPIController extends AppBaseController
     public function store(CreateUserAPIRequest $request)
     {
         $input = $request->all();
-
+        $input['password'] = bcrypt($input['password']);
         if(!empty($input['avatar'])) {
             $imageName = Str::slug($input['name'] , '-');
             $data = $input['avatar'];
