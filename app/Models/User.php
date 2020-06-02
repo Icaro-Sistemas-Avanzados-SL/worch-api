@@ -66,7 +66,7 @@ class User extends Model
     use SoftDeletes;
 
     public $table = 'users';
-    
+
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
 
@@ -80,7 +80,14 @@ class User extends Model
         'email',
         'email_verified_at',
         'password',
-        'remember_token'
+        'remember_token',
+        'bio',
+        'phone',
+        'birthdate',
+        'gender',
+        'instagram',
+        'facebook',
+        'avatar'
     ];
 
     /**
@@ -94,7 +101,14 @@ class User extends Model
         'email' => 'string',
         'email_verified_at' => 'datetime',
         'password' => 'string',
-        'remember_token' => 'string'
+        'remember_token' => 'string',
+        'bio' => 'string',
+        'phone' => 'string',
+        'birthdate' => 'date',
+        'gender' => 'string',
+        'instagram' => 'string',
+        'facebook' => 'string',
+        'avatar' => 'string',
     ];
 
     /**
