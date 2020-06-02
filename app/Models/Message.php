@@ -114,9 +114,6 @@ class Message extends Model
      */
     public static $rules = [
         'message' => 'required',
-        'is_seen' => 'required',
-        'deleted_from_sender' => 'required',
-        'deleted_from_receiver' => 'required',
         'user_id' => 'required',
         'conversation_id' => 'required'
     ];
