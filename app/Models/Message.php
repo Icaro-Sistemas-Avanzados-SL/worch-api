@@ -123,7 +123,7 @@ class Message extends Model
      **/
     public function conversation()
     {
-        return $this->belongsTo(\App\Models\Conversation::class, 'conversation_id')->without('messages');;
+        return $this->belongsTo(\App\Models\Conversation::class, 'conversation_id')->without('messages');
     }
 
     /**
