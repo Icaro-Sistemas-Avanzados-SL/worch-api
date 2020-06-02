@@ -8,6 +8,8 @@ use App\Models\User;
 use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Response;
 
 /**
@@ -111,6 +113,14 @@ class UserAPIController extends AppBaseController
     {
         $input = $request->all();
 
+        if(!empty($input['avatar'])) {
+            $imageName = Str::slug($input['name'] , '-');
+            $data = $input['avatar'];
+            list($type, $data) = explode(';', $data);
+            list(, $data)      = explode(',', $data);
+            Storage::disk('public')->put('users/'.$imageName.'.jpeg', base64_decode($data));
+            $input['avatar'] =  'users/'.$imageName.'.jpeg';
+        }
         $user = $this->userRepository->create($input);
 
         return $this->sendResponse($user->toArray(), 'User saved successfully');
