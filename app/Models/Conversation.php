@@ -126,4 +126,12 @@ class Conversation extends Model
             $query->where('guest', $user)->orWhere('host', $user);
         }
     }
+
+    public function scopeGuestHost($query, $guestId, $hostId){
+        if($guestId && $hostId) {
+            $query->where('guest', $guestId)->orWhere('host', $guestId)->where(function () use($query, $hostId) {
+                $query->where('guest', $hostId)->orWhere('host', $hostId);
+            });
+        }
+    }
 }

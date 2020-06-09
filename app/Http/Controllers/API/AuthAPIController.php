@@ -79,6 +79,7 @@ class AuthAPIController extends AppBaseController
             $user = Auth::user();
             $user->remember_token = Str::random(32);
             $user->save();
+            $user->load('followeds');
             return $this->sendResponse($user->toArray(), 'Logged successfully');
         }    else  {
             return $this->sendError('User not found', 200);

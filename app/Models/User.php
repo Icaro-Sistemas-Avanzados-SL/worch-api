@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Eloquent as Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
 /**
  * @SWG\Definition(
@@ -61,11 +63,14 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *      )
  * )
  */
-class User extends Model
+class User extends Authenticatable
 {
+    use Notifiable;
     use SoftDeletes;
 
     public $table = 'users';
+
+    protected $with = ['followeds'];
 
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
@@ -149,7 +154,7 @@ class User extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      **/
-    public function follower1s()
+    public function followeds()
     {
         return $this->hasMany(\App\Models\Follower::class, 'follower_id');
     }

@@ -223,8 +223,8 @@ class Challenge extends Model
     public function scopeFollowed($query, $user){
         if($user) {
             $query->whereHas('user', function($q) use($user){
-                $q->whereHas('follower1s', function ($query) use($user) {
-                    $query->where('followed_id', $user);
+                $q->whereHas('followers', function ($query) use($user) {
+                    $query->where('follower_id', $user);
                 });
             });
         }

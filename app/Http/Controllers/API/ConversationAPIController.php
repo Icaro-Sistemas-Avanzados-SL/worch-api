@@ -66,7 +66,8 @@ class ConversationAPIController extends AppBaseController
             $request->perPage,
             true
         );
-        $conversations = $conversations->user($request->user)->paginate($request->perPage);
+        $conversations = $conversations->user($request->user)->guestHost($request->guest_id, $request->host_id)
+            ->paginate($request->perPage);
 
         return $this->sendResponse($conversations->toArray(), 'Conversations retrieved successfully');
     }
