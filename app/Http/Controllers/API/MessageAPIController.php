@@ -116,9 +116,9 @@ class MessageAPIController extends AppBaseController
         $message = $this->messageRepository->create($input);
 
         $message->load('conversation');
-        $receiver = User::find($message->user_id);
-        $sender = $message->conversation->guest == $message->user_id ?
-            User::find($message->conversation->guest) : User::find($message->conversation->host);
+        $sender = User::find($message->user_id);
+        $receiver = $message->conversation->guest == $message->user_id ?
+            User::find($message->conversation->host) : User::find($message->conversation->guest);
 
         broadcast(new NewMessage('Nuevo mensaje de '. $sender->name,
             $message->message, $receiver))->toOthers();
