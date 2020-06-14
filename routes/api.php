@@ -33,13 +33,17 @@ Route::resource('ratings', 'RatingAPIController');
 
 Route::resource('users', 'UserAPIController');
 
-Route::post('login','AuthAPIController@login');
-
-Route::post('check','AuthAPIController@checkLogin');
-
-
 Route::resource('notifications', 'NotificationAPIController');
 
 Route::resource('conversations', 'ConversationAPIController');
 
 Route::resource('messages', 'MessageAPIController');
+
+Route::post('login','AuthAPIController@login');
+
+Route::post('check','AuthAPIController@checkLogin');
+
+Route::post('pusher/auth', 'AuthApiController@pusherAuth');
+
+
+

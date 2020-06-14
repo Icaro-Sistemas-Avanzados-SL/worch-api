@@ -9,6 +9,8 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use Pusher\Pusher;
+use Pusher\PusherException;
 use Response;
 
 /**
@@ -145,6 +147,26 @@ class AuthAPIController extends AppBaseController
         }    else  {
             return $this->sendError('User not found', 200);
         }
+    }
+
+    public function pusherAuth()
+    {
+        $options = array(
+            'cluster' => config('broadcasting.connections.pusher.options.cluster')
+        );
+        try {
+            $pusher = new Pusher(config('broadcasting.connections.pusher.key'),
+                config('broadcasting.connections.pusher.secret'),
+                config('broadcasting.connections.pusher.app_id'),
+                $options);
+            $auth = $pusher->socket_auth(request()->input('channel_name'), request()->input('socket_id'));
+            echo $auth;
+            return;
+        } catch (PusherException $e) {
+            return;
+        }
+        return;
+
     }
 
 

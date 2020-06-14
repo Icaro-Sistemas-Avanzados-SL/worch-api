@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Events\UserFollowed;
 use App\Http\Requests\API\CreateFollowerAPIRequest;
 use App\Http\Requests\API\UpdateFollowerAPIRequest;
 use App\Models\Follower;
 use App\Repositories\FollowerRepository;
+use http\Client\Curl\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
 use Response;
@@ -112,6 +114,12 @@ class FollowerAPIController extends AppBaseController
         $input = $request->all();
 
         $follower = $this->followerRepository->create($input);
+
+        $user = User::find($follower->followed_id);
+        $followerUser = User::find($follower->follower_id);
+
+        broadcast(new UserFollowed('Nuevo seguidor',
+            'El usuario: '. $followerUser->name . ' ha comenzado a seguirte', $user))->toOthers();
 
         return $this->sendResponse($follower->toArray(), 'Follower saved successfully');
     }
