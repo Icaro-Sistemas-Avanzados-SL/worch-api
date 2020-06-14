@@ -2,6 +2,8 @@
 
 namespace App\Events;
 
+use App\Models\Challenge;
+use App\Models\User;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -10,18 +12,24 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class ChallengeReplied
+class ChallengeReplied implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
+    public $user;
+    public $challenge;
+    public $message;
+    public $title;
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($title, $message, User $user)
     {
-        //
+        $this->title = $title;
+        $this->message = $message;
+        $this->user = $user;
     }
 
     /**
@@ -31,6 +39,6 @@ class ChallengeReplied
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('channel-name');
+        return new PrivateChannel('challenge_replied_'.$this->user->id);
     }
 }

@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Events\ChallengeReplied;
 use App\Http\Requests\API\CreateChallengeAPIRequest;
 use App\Http\Requests\API\UpdateChallengeAPIRequest;
 use App\Models\Challenge;
+use App\Models\Notification;
 use App\Repositories\ChallengeRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
@@ -127,6 +129,16 @@ class ChallengeAPIController extends AppBaseController
             list(, $data)      = explode(',', $data);
             Storage::disk('public')->put('challenges/'.$imageName.'.jpeg', base64_decode($data));
             $input['file'] =  'challenges/'.$imageName.'.jpeg';
+        }
+
+        if($challenge->parent_id) {
+            broadcast(new ChallengeReplied('Han realizado tu reto '. $challenge->parent->title,
+                'El usuario: '. $challenge->user->name . ' ha realizado tu reto', $challenge->parent->user))->toOthers();
+            $notification = new Notification();
+            $notification->message = 'El usuario: '. $challenge->user->name . '  ha realizado tu reto '. $challenge->parent->title;
+            $notification->notificated_id = $challenge->parent->user->id;
+            $notification->notification_user_id = $challenge->user->id;
+            $notification->save();
         }
 
 
