@@ -6,6 +6,7 @@ use App\Events\UserFollowed;
 use App\Http\Requests\API\CreateFollowerAPIRequest;
 use App\Http\Requests\API\UpdateFollowerAPIRequest;
 use App\Models\Follower;
+use App\Models\Notification;
 use App\Models\User;
 use App\Repositories\FollowerRepository;
 use Illuminate\Http\Request;
@@ -120,6 +121,10 @@ class FollowerAPIController extends AppBaseController
 
         broadcast(new UserFollowed('Nuevo seguidor',
             'El usuario: '. $followerUser->name . ' ha comenzado a seguirte', $user))->toOthers();
+        $notification = new Notification();
+        $notification->message = 'El usuario: '. $followerUser->name . ' ha comenzado a seguirte';
+        $notification->notificated_id = $user->id;
+        $notification->save();
 
         return $this->sendResponse($follower->toArray(), 'Follower saved successfully');
     }

@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Events\NewMessage;
 use App\Http\Requests\API\CreateMessageAPIRequest;
 use App\Http\Requests\API\UpdateMessageAPIRequest;
 use App\Models\Message;
+use App\Models\User;
 use App\Repositories\MessageRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
@@ -112,6 +114,14 @@ class MessageAPIController extends AppBaseController
         $input = $request->all();
 
         $message = $this->messageRepository->create($input);
+
+        $message->load('conversation');
+        $receiver = User::find($message->user_id);
+        $sender = $message->conversation->guest == $message->user_id ?
+            User::find($message->conversation->guest) : User::find($message->conversation->host);
+
+        broadcast(new NewMessage('Nuevo mensaje de '. $sender->name,
+            $message->message, $receiver))->toOthers();
 
         return $this->sendResponse($message->toArray(), 'Message saved successfully');
     }

@@ -64,7 +64,7 @@ class Notification extends Model
     public $table = 'notifications';
 
     protected $with = ['notificated', 'notificationUser'];
-    
+
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
 
@@ -101,7 +101,6 @@ class Notification extends Model
     public static $rules = [
         'message' => 'required',
         'read' => 'required',
-        'notification_user_id' => 'required',
         'notificated_id' => 'required'
     ];
 
