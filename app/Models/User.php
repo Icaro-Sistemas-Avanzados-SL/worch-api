@@ -70,7 +70,7 @@ class User extends Authenticatable
 
     public $table = 'users';
 
-    protected $with = ['followeds', 'followers', 'notifications'];
+    protected $with = ['followeds', 'followers', 'notificationsReceived'];
 
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
@@ -151,9 +151,9 @@ class User extends Authenticatable
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      **/
-    public function notifications()
+    public function notificationsReceived()
     {
-        return $this->hasMany(\App\Models\Notification::class, 'notificated_id');
+        return $this->hasMany(\App\Models\Notification::class, 'notificated_id')->without('user');
     }
 
     /**
