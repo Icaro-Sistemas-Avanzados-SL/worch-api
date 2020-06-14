@@ -153,7 +153,7 @@ class User extends Authenticatable
      **/
     public function notificationsReceived()
     {
-        return $this->hasMany(\App\Models\Notification::class, 'notificated_id')->without('user');
+        return $this->hasMany(\App\Models\Notification::class, 'notificated_id')->without('notificated');
     }
 
     /**
@@ -161,7 +161,7 @@ class User extends Authenticatable
      **/
     public function followers()
     {
-        return $this->hasMany(\App\Models\Follower::class, 'followed_id')->without('user');
+        return $this->hasMany(\App\Models\Follower::class, 'followed_id')->without('followed');
     }
 
     /**
@@ -169,7 +169,7 @@ class User extends Authenticatable
      **/
     public function followeds()
     {
-        return $this->hasMany(\App\Models\Follower::class, 'follower_id')->without('user');
+        return $this->hasMany(\App\Models\Follower::class, 'follower_id')->without('follower');
     }
 
     /**
