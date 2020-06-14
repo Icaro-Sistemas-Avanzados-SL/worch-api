@@ -124,6 +124,7 @@ class FollowerAPIController extends AppBaseController
         $notification = new Notification();
         $notification->message = 'El usuario: '. $followerUser->name . ' ha comenzado a seguirte';
         $notification->notificated_id = $user->id;
+        $notification->notification_user = $followerUser->id;
         $notification->save();
 
         return $this->sendResponse($follower->toArray(), 'Follower saved successfully');
