@@ -79,6 +79,7 @@ class User extends Authenticatable
     protected $dates = ['deleted_at'];
 
 
+    protected $hidden = ['password'];
 
     public $fillable = [
         'name',
@@ -166,4 +167,18 @@ class User extends Authenticatable
     {
         return $this->hasMany(\App\Models\Rating::class, 'user_id');
     }
+
+
+    public $withCount = ['challenges', 'followeds', 'followers'];
+
+    public function getAvgRatingAttribute ()
+    {
+        $ratings = Rating::whereHas('challenge', function ($q) {
+            $q->where('user_id', $this->id);
+        });
+
+        return $ratings->avg('rate');
+
+    }
+
 }
