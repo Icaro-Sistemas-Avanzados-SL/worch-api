@@ -52,7 +52,9 @@ class Follower extends Model
     use SoftDeletes;
 
     public $table = 'followers';
-    
+
+    protected $with = ['followed', 'follower'];
+
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
 
@@ -92,7 +94,7 @@ class Follower extends Model
      **/
     public function followed()
     {
-        return $this->belongsTo(\App\Models\User::class, 'followed_id');
+        return $this->belongsTo(\App\Models\User::class, 'followed_id')->without('followers', 'followeds');
     }
 
     /**
@@ -100,6 +102,6 @@ class Follower extends Model
      **/
     public function follower()
     {
-        return $this->belongsTo(\App\Models\User::class, 'follower_id');
+        return $this->belongsTo(\App\Models\User::class, 'follower_id')->without('followeds', 'followers');
     }
 }

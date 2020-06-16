@@ -142,8 +142,8 @@ class ChallengeAPIController extends AppBaseController
             $notification->notification_user_id = $challenge->user->id;
             $notification->save();
         }
-
-
+        $imageName = $input['slug'].'.'. $input['mime'];
+        Storage::disk('public')->delete($imageName);
         return $this->sendResponse($challenge->toArray(), 'Challenge saved successfully');
     }
 
