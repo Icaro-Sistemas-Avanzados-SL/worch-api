@@ -129,6 +129,7 @@ class ChallengeAPIController extends AppBaseController
             $file->type = 'video';
             $file->url = $input['file'];
             $file->challenge_id = $challenge->id;
+            $file->save();
         }
 
 
