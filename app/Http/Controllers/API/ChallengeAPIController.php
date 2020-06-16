@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Response;
+use Vimeo\Laravel\Facades\Vimeo;
 
 /**
  * Class ChallengeController
@@ -127,9 +128,10 @@ class ChallengeAPIController extends AppBaseController
             $data = $input['file'];
             list($type, $data) = explode(';', $data);
             list(, $data)      = explode(',', $data);
-            Storage::disk('public')->put('challenges/'.$imageName.'.jpeg', base64_decode($data));
-            $input['file'] =  'challenges/'.$imageName.'.jpeg';
+            Storage::disk('public')->put('challenges/'.$imageName.'.mp4', base64_decode($data));
+            $input['file'] =  'challenges/'.$imageName.'.mp4';
         }
+
 
         if($challenge->parent_id) {
             broadcast(new ChallengeReplied('Han realizado tu reto '. $challenge->parent->title,
@@ -145,6 +147,27 @@ class ChallengeAPIController extends AppBaseController
         return $this->sendResponse($challenge->toArray(), 'Challenge saved successfully');
     }
 
+    public function uploadVideo(Request $request)
+    {
+        $input = $request->all();
+        $input['slug'] =  Str::slug($input['title'] , '-');
+        if(Challenge::where('slug', $input['slug'])->first()) {
+            $input['slug'] = $input['slug'].'-2';
+        }
+        if(!empty($input['file'])) {
+            $imageName = $input['slug'].'.'. $input['mime'];
+            $data = $input['file'];
+            list($type, $data) = explode(';', $data);
+            list(, $data)      = explode(',', $data);
+            Storage::disk('public')->put('challenges/'.$imageName, base64_decode($data));
+            return Vimeo::upload(storage_path('app/public/'.$imageName));
+            //$input['file'] =  'challenges/'.$imageName.'.'. $input['mime'];
+        }
+
+        return 'error';
+
+       // return $this->sendResponse($challenge->toArray(), 'Video saved successfully');
+    }
     /**
      * @param int $id
      * @return Response

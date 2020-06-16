@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Vimeo\Laravel\Facades\Vimeo;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,5 +46,4 @@ Route::post('check','AuthAPIController@checkLogin');
 
 Route::post('pusher/auth', 'AuthAPIController@pusherAuth');
 
-
-
+Route::get('uploadVideo', 'ChallengeAPIController@uploadVideo');

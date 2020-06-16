@@ -4,8 +4,62 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1db0e1fa811f423ce86fbc7328b7ad41",
+    "content-hash": "7a74acefadcd341b2f803225df886355",
     "packages": [
+        {
+            "name": "ankitpokhrel/tus-php",
+            "version": "dev-symfony-5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ankitpokhrel/tus-php.git",
+                "reference": "738727d462155bc3dcfaf3913706a77adccf38f5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ankitpokhrel/tus-php/zipball/738727d462155bc3dcfaf3913706a77adccf38f5",
+                "reference": "738727d462155bc3dcfaf3913706a77adccf38f5",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "guzzlehttp/guzzle": "^6.3",
+                "nesbot/carbon": "^1.26.3 || ^2.0",
+                "php": "^7.1.3",
+                "predis/predis": "^1.1",
+                "ramsey/uuid": "^3.7 || ^4.0",
+                "symfony/console": "^5.0",
+                "symfony/event-dispatcher": "^5.0",
+                "symfony/http-foundation": "^5.0.7"
+            },
+            "require-dev": {
+                "ext-pcntl": "*",
+                "friendsofphp/php-cs-fixer": "^2.9",
+                "mockery/mockery": "^1.3.0",
+                "php-mock/php-mock": "^2.0",
+                "phpunit/phpunit": "7.5.20"
+            },
+            "bin": [
+                "bin/tus"
+            ],
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "TusPhp\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ankit Pokhrel",
+                    "email": "hello@ankit.pl"
+                }
+            ],
+            "description": "A pure PHP server and client for the tus resumable upload protocol v1.0.0",
+            "time": "2020-04-18T08:11:55+00:00"
+        },
         {
             "name": "asm89/stack-cors",
             "version": "1.3.0",
@@ -811,6 +865,66 @@
                 "laravel"
             ],
             "time": "2020-04-28T08:47:37+00:00"
+        },
+        {
+            "name": "graham-campbell/manager",
+            "version": "v4.5.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/GrahamCampbell/Laravel-Manager.git",
+                "reference": "9584dcca30aeaebd04bed7f1a59ee52fe5b24b49"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/GrahamCampbell/Laravel-Manager/zipball/9584dcca30aeaebd04bed7f1a59ee52fe5b24b49",
+                "reference": "9584dcca30aeaebd04bed7f1a59ee52fe5b24b49",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/contracts": "^5.5|^6.0|^7.0",
+                "illuminate/support": "^5.5|^6.0|^7.0",
+                "php": "^7.1.3"
+            },
+            "require-dev": {
+                "graham-campbell/analyzer": "^2.4|^3.0",
+                "graham-campbell/testbench-core": "^3.1",
+                "mockery/mockery": "^1.3.1",
+                "phpunit/phpunit": "^6.5|^7.5|^8.4|^9.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "4.5-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "GrahamCampbell\\Manager\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Graham Campbell",
+                    "email": "graham@alt-three.com"
+                }
+            ],
+            "description": "Manager Provides Some Manager Functionality For Laravel",
+            "keywords": [
+                "Graham Campbell",
+                "GrahamCampbell",
+                "Laravel Manager",
+                "Laravel-Manager",
+                "connector",
+                "framework",
+                "interface",
+                "laravel",
+                "manager"
+            ],
+            "time": "2020-04-26T09:40:56+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -2099,6 +2213,56 @@
                 "type"
             ],
             "time": "2020-03-21T18:07:53+00:00"
+        },
+        {
+            "name": "predis/predis",
+            "version": "v1.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nrk/predis.git",
+                "reference": "f0210e38881631afeafb56ab43405a92cafd9fd1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nrk/predis/zipball/f0210e38881631afeafb56ab43405a92cafd9fd1",
+                "reference": "f0210e38881631afeafb56ab43405a92cafd9fd1",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.9"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.8"
+            },
+            "suggest": {
+                "ext-curl": "Allows access to Webdis when paired with phpiredis",
+                "ext-phpiredis": "Allows faster serialization and deserialization of the Redis protocol"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Predis\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Daniele Alessandri",
+                    "email": "suppakilla@gmail.com",
+                    "homepage": "http://clorophilla.net"
+                }
+            ],
+            "description": "Flexible and feature-complete Redis client for PHP and HHVM",
+            "homepage": "http://github.com/nrk/predis",
+            "keywords": [
+                "nosql",
+                "predis",
+                "redis"
+            ],
+            "time": "2016-06-16T16:22:20+00:00"
         },
         {
             "name": "psr/container",
@@ -4076,6 +4240,125 @@
             "description": "CssToInlineStyles is a class that enables you to convert HTML-pages/files into HTML-pages/files with inline styles. This is very useful when you're sending emails.",
             "homepage": "https://github.com/tijsverkoyen/CssToInlineStyles",
             "time": "2019-10-24T08:53:34+00:00"
+        },
+        {
+            "name": "vimeo/laravel",
+            "version": "5.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/vimeo/laravel.git",
+                "reference": "83abaeec0576755547bc994b61d714de1f17e0f8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/vimeo/laravel/zipball/83abaeec0576755547bc994b61d714de1f17e0f8",
+                "reference": "83abaeec0576755547bc994b61d714de1f17e0f8",
+                "shasum": ""
+            },
+            "require": {
+                "graham-campbell/manager": "^4.0",
+                "illuminate/contracts": "^5.8|^6.0|^7.0",
+                "illuminate/support": "^5.8|^6.0|^7.0",
+                "php": "^7.2",
+                "vimeo/vimeo-api": "^3.0.3"
+            },
+            "require-dev": {
+                "graham-campbell/analyzer": "^2.0",
+                "graham-campbell/testbench": "^5.2",
+                "laravel/framework": "^5.8|^6.0|^7.0",
+                "laravel/lumen-framework": "^5.7",
+                "mockery/mockery": "^1.0",
+                "phpunit/phpunit": "^7.0",
+                "psalm/plugin-laravel": "^0.4",
+                "vimeo/psalm": "^3.1"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Vimeo\\Laravel\\VimeoServiceProvider"
+                    ],
+                    "aliases": {
+                        "Vimeo": "Vimeo\\Laravel\\Facades\\Vimeo"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Vimeo\\Laravel\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Jon Ursenbach",
+                    "email": "jonu@vimeo.com"
+                },
+                {
+                    "name": "Vincent Klaiber",
+                    "email": "hello@vinkla.com",
+                    "homepage": "https://vinkla.com"
+                }
+            ],
+            "description": "A Vimeo bridge for Laravel",
+            "keywords": [
+                "laravel",
+                "video",
+                "vimeo"
+            ],
+            "time": "2020-03-06T02:48:26+00:00"
+        },
+        {
+            "name": "vimeo/vimeo-api",
+            "version": "3.0.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/vimeo/vimeo.php.git",
+                "reference": "316cdb02b8d5a34b0af03e0da79f8c7e61283504"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/vimeo/vimeo.php/zipball/316cdb02b8d5a34b0af03e0da79f8c7e61283504",
+                "reference": "316cdb02b8d5a34b0af03e0da79f8c7e61283504",
+                "shasum": ""
+            },
+            "require": {
+                "ankitpokhrel/tus-php": "^v1.0.0",
+                "ext-curl": "*",
+                "ext-json": "*",
+                "php": ">=7.1.0"
+            },
+            "require-dev": {
+                "php-coveralls/php-coveralls": "^1.0",
+                "phpunit/phpunit": "^7.4",
+                "vimeo/psalm": "^2.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Vimeo\\": "src/Vimeo"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Vimeo",
+                    "homepage": "http://vimeo.com"
+                }
+            ],
+            "description": "Official PHP library for the Vimeo API.",
+            "homepage": "https://github.com/vimeo/vimeo.php",
+            "keywords": [
+                "video",
+                "vimeo"
+            ],
+            "time": "2019-12-12T17:54:54+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
@@ -6180,9 +6463,17 @@
             "time": "2020-04-18T12:12:48+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.10.0",
+            "alias_normalized": "1.10.0.0",
+            "version": "dev-symfony-5",
+            "package": "ankitpokhrel/tus-php"
+        }
+    ],
     "minimum-stability": "dev",
     "stability-flags": {
+        "ankitpokhrel/tus-php": 20,
         "infyomlabs/adminlte-templates": 20,
         "infyomlabs/laravel-generator": 20,
         "infyomlabs/swagger-generator": 20
