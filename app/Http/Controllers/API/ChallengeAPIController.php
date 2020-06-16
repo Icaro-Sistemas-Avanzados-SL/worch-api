@@ -6,6 +6,7 @@ use App\Events\ChallengeReplied;
 use App\Http\Requests\API\CreateChallengeAPIRequest;
 use App\Http\Requests\API\UpdateChallengeAPIRequest;
 use App\Models\Challenge;
+use App\Models\File;
 use App\Models\Notification;
 use App\Repositories\ChallengeRepository;
 use Illuminate\Http\Request;
@@ -124,12 +125,10 @@ class ChallengeAPIController extends AppBaseController
         }
         $challenge = $this->challengeRepository->create($input);
         if(!empty($input['file'])) {
-            $imageName = $input['slug'];
-            $data = $input['file'];
-            list($type, $data) = explode(';', $data);
-            list(, $data)      = explode(',', $data);
-            Storage::disk('public')->put('challenges/'.$imageName.'.mp4', base64_decode($data));
-            $input['file'] =  'challenges/'.$imageName.'.mp4';
+            $file = new File();
+            $file->type = 'video';
+            $file->url = $input['file'];
+            $file->challenge_id = $challenge->id;
         }
 
 
