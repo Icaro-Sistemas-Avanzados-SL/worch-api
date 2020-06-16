@@ -160,11 +160,11 @@ class ChallengeAPIController extends AppBaseController
             list($type, $data) = explode(';', $data);
             list(, $data)      = explode(',', $data);
             Storage::disk('public')->put('challenges/'.$imageName, base64_decode($data));
-            return Vimeo::upload(storage_path('app/public/'.$imageName));
+            Vimeo::upload(storage_path('app/public/'.$imageName));
             //$input['file'] =  'challenges/'.$imageName.'.'. $input['mime'];
         }
 
-        return 'error';
+        return 'video uploadesd xd';
 
        // return $this->sendResponse($challenge->toArray(), 'Video saved successfully');
     }
