@@ -46,4 +46,4 @@ Route::post('check','AuthAPIController@checkLogin');
 
 Route::post('pusher/auth', 'AuthAPIController@pusherAuth');
 
-Route::get('uploadVideo', 'ChallengeAPIController@uploadVideo');
+Route::post('uploadVideo', 'ChallengeAPIController@uploadVideo');
