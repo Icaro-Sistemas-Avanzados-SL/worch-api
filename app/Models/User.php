@@ -137,7 +137,7 @@ class User extends Authenticatable
      **/
     public function challenges()
     {
-        return $this->hasMany(\App\Models\Challenge::class, 'user_id')->without('user');
+        return $this->hasMany(\App\Models\Challenge::class, 'user_id');
     }
 
     /**
