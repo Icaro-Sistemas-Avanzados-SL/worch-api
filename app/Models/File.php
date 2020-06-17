@@ -70,7 +70,8 @@ class File extends Model
         'challenge_id',
         'category_id',
         'url',
-        'thumbnail'
+        'thumbnail_vertical',
+        'thumbnail_horizontal'
     ];
 
     /**
@@ -84,7 +85,8 @@ class File extends Model
         'challenge_id' => 'integer',
         'category_id' => 'integer',
         'url' => 'string',
-        'thumbnail' => 'string'
+        'thumbnail_vertical' => 'string',
+        'thumbnail_horizontal' => 'string'
     ];
 
     /**
@@ -95,7 +97,8 @@ class File extends Model
     public static $rules = [
         'type' => 'required',
         'url' => 'required',
-        'thumbnail' => 'required'
+        'thumbnail_vertical' => 'required',
+        'thumbnail_horizontal' => 'required'
     ];
 
     /**

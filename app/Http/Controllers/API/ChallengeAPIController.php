@@ -125,12 +125,14 @@ class ChallengeAPIController extends AppBaseController
         }
         $challenge = $this->challengeRepository->create($input);
         $video = Vimeo::request($input['file']);
-        $thumbnail = $video['body']['pictures']['sizes'][3]['link_with_play_button'];
+        $thumbnail_horizontal = $video['body']['pictures']['sizes'][3]['link_with_play_button'];
+        $thumbnail_vertical = $video['body']['pictures']['sizes'][7]['link_with_play_button'];
         if(!empty($input['file'])) {
             $file = new File();
             $file->type = 'video';
             $file->url = $input['file'];
-            $file->thumbnail = $thumbnail;
+            $file->thumbnail_horizontal = $thumbnail_horizontal;
+            $file->thumbnail_vertical = $thumbnail_vertical;
             $file->challenge_id = $challenge->id;
             $file->save();
         }
