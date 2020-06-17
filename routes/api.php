@@ -2,7 +2,6 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use Vimeo\Laravel\Facades\Vimeo;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,8 +46,3 @@ Route::post('check','AuthAPIController@checkLogin');
 Route::post('pusher/auth', 'AuthAPIController@pusherAuth');
 
 Route::post('uploadVideo', 'ChallengeAPIController@uploadVideo');
-
-Route::get('vimeo', function () {
-    $video = Vimeo::request('/videos/429789554');
-    return $video['body']['pictures']['sizes'][3]['link_with_play_button'];
-});
