@@ -70,7 +70,7 @@ class User extends Authenticatable
 
     public $table = 'users';
 
-    protected $with = ['followeds', 'followers', 'notificationsReceived'];
+    protected $with = ['followeds', 'followers', 'notificationsReceived', 'challenges'];
 
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
@@ -137,7 +137,7 @@ class User extends Authenticatable
      **/
     public function challenges()
     {
-        return $this->hasMany(\App\Models\Challenge::class, 'user_id');
+        return $this->hasMany(\App\Models\Challenge::class, 'user_id')->without('user');
     }
 
     /**
