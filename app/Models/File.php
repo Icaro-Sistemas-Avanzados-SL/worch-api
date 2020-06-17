@@ -56,7 +56,7 @@ class File extends Model
     use SoftDeletes;
 
     public $table = 'files';
-    
+
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
 
@@ -69,7 +69,8 @@ class File extends Model
         'type',
         'challenge_id',
         'category_id',
-        'url'
+        'url',
+        'thumbnail'
     ];
 
     /**
@@ -82,7 +83,8 @@ class File extends Model
         'type' => 'string',
         'challenge_id' => 'integer',
         'category_id' => 'integer',
-        'url' => 'string'
+        'url' => 'string',
+        'thumbnail' => 'string'
     ];
 
     /**
@@ -92,7 +94,8 @@ class File extends Model
      */
     public static $rules = [
         'type' => 'required',
-        'url' => 'required'
+        'url' => 'required',
+        'thumbnail' => 'required'
     ];
 
     /**

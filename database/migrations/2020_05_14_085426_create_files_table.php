@@ -19,6 +19,7 @@ class CreateFilesTable extends Migration
             $table->foreignId('challenge_id')->nullable()->references('id')->on('challenges');
             $table->foreignId('category_id')->nullable()->references('id')->on('categories');
             $table->string('url');
+            $table->string('thumbnail');
             $table->timestamps();
             $table->timestamp('deleted_at')->nullable();
         });

@@ -124,10 +124,13 @@ class ChallengeAPIController extends AppBaseController
             $input['slug'] = $input['slug'].'-2';
         }
         $challenge = $this->challengeRepository->create($input);
+        $video = Vimeo::request($input['file']);
+        $thumbnail = $video['body']['pictures']['sizes'][3]['link_with_play_button'];
         if(!empty($input['file'])) {
             $file = new File();
             $file->type = 'video';
             $file->url = $input['file'];
+            $file->thumbnail = $thumbnail;
             $file->challenge_id = $challenge->id;
             $file->save();
         }
