@@ -163,7 +163,7 @@ class Challenge extends Model
         'lng' => 'required'
     ];
 
-    public $appends = ['rate'];
+   // public $appends = ['rate'];
 
 
     public function getRateAttribute()
