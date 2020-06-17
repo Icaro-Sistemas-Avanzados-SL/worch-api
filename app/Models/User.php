@@ -70,7 +70,7 @@ class User extends Authenticatable
 
     public $table = 'users';
 
-    protected $with = ['followeds', 'followers', 'notificationsReceived', 'challenges'];
+    protected $with = ['followeds', 'followers', 'notificationsReceived'];
 
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
