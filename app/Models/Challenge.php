@@ -163,7 +163,7 @@ class Challenge extends Model
         'lng' => 'required'
     ];
 
-   // public $appends = ['rate'];
+    public $appends = ['rate'];
 
 
     public function getRateAttribute()
@@ -185,7 +185,7 @@ class Challenge extends Model
      **/
     public function user()
     {
-        return $this->belongsTo(\App\Models\User::class, 'user_id')->without('challenges');
+        return $this->belongsTo(\App\Models\User::class, 'user_id')->without('challenges', 'followers', 'followeds');
     }
 
     /**
