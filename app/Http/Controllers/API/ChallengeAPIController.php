@@ -76,15 +76,16 @@ class ChallengeAPIController extends AppBaseController
         $challenges = $challenges->near($request->lat, $request->lng)->followed($request->userId)->paginate($request->perPage);
 
         foreach ($challenges as $challenge) {
-            $video = Vimeo::request($challenge->files[0]->url);
-            if($video['body']['upload']['status'] == "complete") {
-                Log::debug('Updating file');
-                $file = File::find($challenge->files[0]->id);
-                $thumbnail_horizontal = $video['body']['pictures']['sizes'][3]['link_with_play_button'];
-                $thumbnail_vertical = $video['body']['pictures']['sizes'][7]['link_with_play_button'];
-                $file->thumbnail_horizontal = $thumbnail_horizontal;
-                $file->thumbnail_vertical = $thumbnail_vertical;
-                $file->save();
+            if(!empty($challenge->files)) {
+                $video = Vimeo::request($challenge->files[0]->url);
+                if($video['body']['upload']['status'] == "complete") {
+                    $file = File::find($challenge->files[0]->id);
+                    $thumbnail_horizontal = $video['body']['pictures']['sizes'][3]['link_with_play_button'];
+                    $thumbnail_vertical = $video['body']['pictures']['sizes'][7]['link_with_play_button'];
+                    $file->thumbnail_horizontal = $thumbnail_horizontal;
+                    $file->thumbnail_vertical = $thumbnail_vertical;
+                    $file->save();
+                }
             }
         }
 
