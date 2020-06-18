@@ -77,11 +77,7 @@ class ChallengeAPIController extends AppBaseController
 
         foreach ($challenges as $challenge) {
             $video = Vimeo::request($challenge->files[0]->url);
-            if($video['body']['upload']['status'] != "complete") {
-                Log::debug('Error status upload, retry');
-                $delay = 60 * 5;
-                $this->release($delay);
-            } else {
+            if($video['body']['upload']['status'] == "complete") {
                 Log::debug('Updating file');
                 $file = File::find($challenge->files[0]->id);
                 $thumbnail_horizontal = $video['body']['pictures']['sizes'][3]['link_with_play_button'];
