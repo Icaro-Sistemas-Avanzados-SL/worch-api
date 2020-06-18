@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Events\ChallengeReplied;
 use App\Http\Requests\API\CreateChallengeAPIRequest;
 use App\Http\Requests\API\UpdateChallengeAPIRequest;
+use App\Jobs\UpdateVimeoThumbnail;
 use App\Models\Challenge;
 use App\Models\File;
 use App\Models\Notification;
@@ -135,6 +136,7 @@ class ChallengeAPIController extends AppBaseController
             $file->thumbnail_vertical = $thumbnail_vertical;
             $file->challenge_id = $challenge->id;
             $file->save();
+            $this->dispatch(new UpdateVimeoThumbnail($file->id, $file->url));
         }
 
 
