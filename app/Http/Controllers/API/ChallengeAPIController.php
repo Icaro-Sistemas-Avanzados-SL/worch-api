@@ -5,7 +5,6 @@ namespace App\Http\Controllers\API;
 use App\Events\ChallengeReplied;
 use App\Http\Requests\API\CreateChallengeAPIRequest;
 use App\Http\Requests\API\UpdateChallengeAPIRequest;
-use App\Jobs\UpdateVimeoThumbnail;
 use App\Models\Challenge;
 use App\Models\File;
 use App\Models\Notification;
@@ -76,6 +75,23 @@ class ChallengeAPIController extends AppBaseController
         );
         $challenges = $challenges->near($request->lat, $request->lng)->followed($request->userId)->paginate($request->perPage);
 
+        foreach ($challenges as $challenge) {
+            $video = Vimeo::request($challenge->files[0]->url);
+            if($video['body']['upload']['status'] != "complete") {
+                Log::debug('Error status upload, retry');
+                $delay = 60 * 5;
+                $this->release($delay);
+            } else {
+                Log::debug('Updating file');
+                $file = File::find($challenge->files[0]->id);
+                $thumbnail_horizontal = $video['body']['pictures']['sizes'][3]['link_with_play_button'];
+                $thumbnail_vertical = $video['body']['pictures']['sizes'][7]['link_with_play_button'];
+                $file->thumbnail_horizontal = $thumbnail_horizontal;
+                $file->thumbnail_vertical = $thumbnail_vertical;
+                $file->save();
+            }
+        }
+
         return $this->sendResponse($challenges->toArray(), 'Challenges retrieved successfully');
     }
 
@@ -136,7 +152,6 @@ class ChallengeAPIController extends AppBaseController
             $file->thumbnail_vertical = $thumbnail_vertical;
             $file->challenge_id = $challenge->id;
             $file->save();
-            $this->dispatch(new UpdateVimeoThumbnail($file->id, $file->url));
         }
 
 
