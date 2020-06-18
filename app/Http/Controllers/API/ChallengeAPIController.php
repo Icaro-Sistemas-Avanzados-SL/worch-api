@@ -76,7 +76,7 @@ class ChallengeAPIController extends AppBaseController
         $challenges = $challenges->near($request->lat, $request->lng)->followed($request->userId)->paginate($request->perPage);
 
         foreach ($challenges as $challenge) {
-            if(!empty($challenge->files)) {
+            if(!$challenge->files->isEmpty()) {
                 $video = Vimeo::request($challenge->files[0]->url);
                 if($video['body']['upload']['status'] == "complete") {
                     $file = File::find($challenge->files[0]->id);
