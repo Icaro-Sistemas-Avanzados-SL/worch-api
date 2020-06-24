@@ -11,6 +11,7 @@ use App\Http\Controllers\AppBaseController;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Response;
+use Throwable;
 
 /**
  * Class UserController
@@ -111,19 +112,24 @@ class UserAPIController extends AppBaseController
      */
     public function store(CreateUserAPIRequest $request)
     {
-        $input = $request->all();
-        $input['password'] = bcrypt($input['password']);
-        if(!empty($input['avatar'])) {
-            $imageName = Str::slug($input['name'] , '-');
-            $data = $input['avatar'];
-            list($type, $data) = explode(';', $data);
-            list(, $data)      = explode(',', $data);
-            Storage::disk('public')->put('users/'.$imageName.'.jpeg', base64_decode($data));
-            $input['avatar'] =  'users/'.$imageName.'.jpeg';
-        }
-        $user = $this->userRepository->create($input);
+        try {
+            $input = $request->all();
+            $input['password'] = bcrypt($input['password']);
+            if(!empty($input['avatar'])) {
+                $imageName = Str::slug($input['name'] , '-');
+                $data = $input['avatar'];
+                list($type, $data) = explode(';', $data);
+                list(, $data)      = explode(',', $data);
+                Storage::disk('public')->put('users/'.$imageName.'.jpeg', base64_decode($data));
+                $input['avatar'] =  'users/'.$imageName.'.jpeg';
+            }
+            $user = $this->userRepository->create($input);
 
-        return $this->sendResponse($user->toArray(), 'User saved successfully');
+            return $this->sendResponse($user->toArray(), 'User saved successfully');
+        } catch (Throwable $e) {
+            return $this->sendError('User not saved successfully', 200);
+        }
+
     }
 
     /**
