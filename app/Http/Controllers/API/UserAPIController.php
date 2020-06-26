@@ -121,7 +121,7 @@ class UserAPIController extends AppBaseController
                 list($type, $data) = explode(';', $data);
                 list(, $data)      = explode(',', $data);
                 Storage::disk('public')->put('users/'.$imageName.'.jpeg', base64_decode($data));
-                $input['avatar'] =  'users/'.$imageName.'.jpeg';
+                $input['avatar'] =  'storage/users/'.$imageName.'.jpeg';
             }
             $user = $this->userRepository->create($input);
 
@@ -242,7 +242,7 @@ class UserAPIController extends AppBaseController
             list($type, $data) = explode(';', $data);
             list(, $data)      = explode(',', $data);
             Storage::disk('public')->put('users/'.$imageName.'.jpeg', base64_decode($data));
-            $input['avatar'] =  'users/'.$imageName.'.jpeg';
+            $input['avatar'] =  'storage/users/'.$imageName.'.jpeg';
         }
 
         if (empty($user)) {
