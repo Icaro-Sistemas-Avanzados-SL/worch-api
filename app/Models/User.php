@@ -133,6 +133,15 @@ class User extends Authenticatable
     ];
 
     /**
+     * Validation rules
+     *
+     * @var array
+     */
+    public static $updateRules = [
+
+    ];
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      **/
     public function challenges()
