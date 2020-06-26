@@ -234,8 +234,9 @@ class UserAPIController extends AppBaseController
 
         /** @var User $user */
         $user = $this->userRepository->find($id);
-
-        $input['password'] = bcrypt($input['password']);
+        if(!empty($input['password'])) {
+            $input['password'] = bcrypt($input['password']);
+        }
         if(!empty($input['avatar'])) {
             $imageName = Str::slug($user['name'] , '-');
             $data = $input['avatar'];
