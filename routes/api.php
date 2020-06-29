@@ -48,7 +48,3 @@ Route::post('pusher/auth', 'AuthAPIController@pusherAuth');
 
 Route::post('uploadVideo', 'ChallengeAPIController@uploadVideo');
 
-Route::get('vimeo', function () {
-    $video = Vimeo::request('/videos/430187382');
-    return $video['body']['upload']['status'];
-});
