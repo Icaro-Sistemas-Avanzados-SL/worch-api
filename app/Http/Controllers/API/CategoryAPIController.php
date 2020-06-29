@@ -63,7 +63,9 @@ class CategoryAPIController extends AppBaseController
             $request->except(['skip', 'limit']),
             $request->get('skip'),
             $request->get('limit'),
-            $request->perPage
+            $request->perPage,
+            false,
+            'asc'
         );
 
         return $this->sendResponse($categories->toArray(), 'Categories retrieved successfully');
