@@ -165,6 +165,8 @@ return [
          * Package Service Providers...
          */
         Vimeo\Laravel\VimeoServiceProvider::class,
+        Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider::class,
+
         /*
          * Application Service Providers...
          */
