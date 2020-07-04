@@ -21,8 +21,8 @@ class LogAfterRequest
 
     public function terminate($request, $response)
     {
-        Log::info('app.requests', ['request' => $request->all()]);
-        Log::info('app.response', ['response' => $response]);
+        Log::info('app.requests.'.$request->method(), ['request' => $request->all()]);
+        Log::info('app.response.'.$request->method(), ['response' => $response]);
     }
 
 }
