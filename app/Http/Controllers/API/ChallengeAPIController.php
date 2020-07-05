@@ -168,6 +168,7 @@ class ChallengeAPIController extends AppBaseController
 
     public function uploadVideo(Request $request)
     {
+        Log::info('Subimos el video...', ['Request' => $request->except('file')]);
         $input = $request->all();
         $input['slug'] =  Str::slug($input['title'] , '-');
         if(Challenge::where('slug', $input['slug'])->first()) {
