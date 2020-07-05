@@ -21,8 +21,8 @@ class LogAfterRequest
 
     public function terminate($request, $response)
     {
-        Log::info('app.requests.'.$request->method(), ['request' => $request->except(['file'])]);
-        Log::info('app.response.'.$request->method(), ['response' => $response]);
+        Log::info('app.requests.'.$request->method().' PATH: '.$request->path(), ['request' => $request->except(['file'])]);
+        Log::info('app.response.'.$request->method().' PATH: '.$request->path(), ['response' => $response]);
     }
 
 }
