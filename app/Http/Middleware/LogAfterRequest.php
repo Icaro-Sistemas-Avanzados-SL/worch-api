@@ -21,8 +21,10 @@ class LogAfterRequest
 
     public function terminate($request, $response)
     {
-        Log::info('app.requests.'.$request->method().' PATH: '.$request->path(), ['request' => $request->except(['file'])]);
-        Log::info('app.response.'.$request->method().' PATH: '.$request->path(), ['response' => $response]);
+        if($request->path() != 'logs' && $request->path() != 'pusher/auth') {
+            Log::info('app.requests.'.$request->method().' PATH: '.$request->path(), ['request' => $request->except(['file'])]);
+            Log::info('app.response.'.$request->method().' PATH: '.$request->path(), ['response' => $response]);
+        }
     }
 
 }
