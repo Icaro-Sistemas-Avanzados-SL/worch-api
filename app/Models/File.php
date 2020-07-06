@@ -96,9 +96,7 @@ class File extends Model
      */
     public static $rules = [
         'type' => 'required',
-        'url' => 'required',
-        'thumbnail_vertical' => 'required',
-        'thumbnail_horizontal' => 'required'
+        'challenge_id' => 'required',
     ];
 
     /**
