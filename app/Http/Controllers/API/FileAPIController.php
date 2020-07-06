@@ -114,9 +114,6 @@ class FileAPIController extends AppBaseController
     {
         $input = $request->all();
         $slug = Str::slug($input['title'] , '-');
-        if(File::where('slug', $slug)->first()) {
-            $slug = $slug.'-2';
-        }
         if(!empty($input['file'])) {
             $imageName = $slug.'.'. $input['type'];
             $data = $input['file'];
