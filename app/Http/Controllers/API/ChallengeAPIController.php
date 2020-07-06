@@ -138,10 +138,10 @@ class ChallengeAPIController extends AppBaseController
             $input['slug'] = $input['slug'].'-2';
         }
         $challenge = $this->challengeRepository->create($input);
+        if(!empty($input['file'])) {
         $video = Vimeo::request($input['file']);
         $thumbnail_horizontal = $video['body']['pictures']['sizes'][3]['link_with_play_button'];
         $thumbnail_vertical = $video['body']['pictures']['sizes'][7]['link_with_play_button'];
-        if(!empty($input['file'])) {
             $file = new File();
             $file->type = 'video';
             $file->url = $input['file'];
@@ -149,9 +149,9 @@ class ChallengeAPIController extends AppBaseController
             $file->thumbnail_vertical = $thumbnail_vertical;
             $file->challenge_id = $challenge->id;
             $file->save();
+            $imageName = $input['slug'].'.'. $input['mime'];
+            Storage::disk('public')->delete($imageName);
         }
-
-
         if($challenge->parent_id) {
             broadcast(new ChallengeReplied('Han realizado tu reto '. $challenge->parent->title,
                 'El usuario: '. $challenge->user->name . ' ha realizado tu reto', $challenge->parent->user))->toOthers();
@@ -161,8 +161,7 @@ class ChallengeAPIController extends AppBaseController
             $notification->notification_user_id = $challenge->user->id;
             $notification->save();
         }
-        $imageName = $input['slug'].'.'. $input['mime'];
-        Storage::disk('public')->delete($imageName);
+
         return $this->sendResponse($challenge->toArray(), 'Challenge saved successfully');
     }
 

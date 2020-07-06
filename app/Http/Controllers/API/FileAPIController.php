@@ -8,7 +8,10 @@ use App\Models\File;
 use App\Repositories\FileRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Response;
+use Vimeo\Laravel\Facades\Vimeo;
 
 /**
  * Class FileController
@@ -110,6 +113,19 @@ class FileAPIController extends AppBaseController
     public function store(CreateFileAPIRequest $request)
     {
         $input = $request->all();
+        $input['slug'] =  Str::slug($input['title'] , '-');
+        if(File::where('slug', $input['slug'])->first()) {
+            $input['slug'] = $input['slug'].'-2';
+        }
+        if(!empty($input['file'])) {
+            $imageName = $input['slug'].'.'. $input['type'];
+            $data = $input['file'];
+            $data = explode(',', $data)[1];
+            Storage::disk('public')->put($imageName, base64_decode($data));
+            $input['url'] = storage_path('app/public/'.$imageName);
+        } else {
+            return $this->sendError('Video cannot be upload');
+        }
 
         $file = $this->fileRepository->create($input);
 
