@@ -120,7 +120,7 @@ class FileAPIController extends AppBaseController
             $data = $input['file'];
             $data = explode(',', $data)[1];
             Storage::disk('public')->put($imageName, base64_decode($data));
-            $input['url'] = str_replace( '/home/forge/', '', storage_path($imageName));
+            $input['url'] = str_replace( '/home/forge/', 'http://', storage_path($imageName));
         } else {
             return $this->sendError('Video cannot be upload');
         }
