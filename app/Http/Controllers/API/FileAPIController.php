@@ -113,12 +113,12 @@ class FileAPIController extends AppBaseController
     public function store(CreateFileAPIRequest $request)
     {
         $input = $request->all();
-        $input['slug'] =  Str::slug($input['title'] , '-');
-        if(File::where('slug', $input['slug'])->first()) {
-            $input['slug'] = $input['slug'].'-2';
+        $slug = Str::slug($input['title'] , '-');
+        if(File::where('slug', $slug)->first()) {
+            $slug = $slug.'-2';
         }
         if(!empty($input['file'])) {
-            $imageName = $input['slug'].'.'. $input['type'];
+            $imageName = $slug.'.'. $input['type'];
             $data = $input['file'];
             $data = explode(',', $data)[1];
             Storage::disk('public')->put($imageName, base64_decode($data));
