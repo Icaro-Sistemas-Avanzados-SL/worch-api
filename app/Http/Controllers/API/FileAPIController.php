@@ -114,8 +114,9 @@ class FileAPIController extends AppBaseController
     {
         $input = $request->all();
         //$slug = Str::slug($input['title'] , '-');
+        $random = Str::random(8);
         if(!empty($input['file'])) {
-            $imageName = $input['title'];
+            $imageName = $random.'-'.$input['title'];
             $data = $input['file'];
             $data = explode(',', $data)[1];
             Storage::disk('public')->put($imageName, base64_decode($data));
