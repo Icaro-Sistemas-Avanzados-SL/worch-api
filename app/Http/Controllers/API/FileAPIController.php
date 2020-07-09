@@ -115,12 +115,23 @@ class FileAPIController extends AppBaseController
         $input = $request->all();
         //$slug = Str::slug($input['title'] , '-');
         $random = Str::random(8);
-        if(!empty($input['file'])) {
-            $imageName = $random.'-'.$input['title'];
-            $data = $input['file'];
-            $data = explode(',', $data)[1];
-            Storage::disk('public')->put($imageName, base64_decode($data));
-            $input['url'] = str_replace( '/var/www/vhosts/mallorcamoves.es/', 'https://', storage_path($imageName));
+        if(!empty($input['files'])) {
+            $file = $request->file('files');
+            //you also need to keep file extension as well
+
+           $name = $file->getClientOriginalName();
+            $input['url']  = $file->storeAs(
+                'public/challenges', $name
+            );
+            $input['url'] =  env('URL_STORAGE'). str_replace('public/', '', $input['url']);
+            //Storage::disk('public')->put('challenges'.$name, $file);
+            //$input['url'] = str_replace( '/var/www/vhosts/mallorcamoves.es/', 'https://', storage_path($name));
+            /*            $imageName = $random.'-'.$input['title'];
+                        $data = $input['file'];
+                        $data = explode(',', $data)[1];
+                        Storage::disk('public')->put($imageName, base64_decode($data));
+                        $input['url'] = str_replace( '/var/www/vhosts/mallorcamoves.es/', 'https://', storage_path($imageName));*/
+
         } else {
             return $this->sendError('Video cannot be upload');
         }
