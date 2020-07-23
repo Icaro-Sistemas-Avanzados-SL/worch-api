@@ -104,7 +104,7 @@ class File extends Model
      **/
     public function category()
     {
-        return $this->belongsTo(\App\Models\Category::class, 'category_id');
+        return $this->belongsTo(\App\Models\Category::class, 'category_id')->without('files');
     }
 
     /**
@@ -112,6 +112,6 @@ class File extends Model
      **/
     public function challenge()
     {
-        return $this->belongsTo(\App\Models\Challenge::class, 'challenge_id');
+        return $this->belongsTo(\App\Models\Challenge::class, 'challenge_id')->without('files');
     }
 }

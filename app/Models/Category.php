@@ -49,7 +49,7 @@ class Category extends Model
     use SoftDeletes;
 
     public $table = 'categories';
-    
+
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
 
@@ -92,7 +92,7 @@ class Category extends Model
      **/
     public function challenges()
     {
-        return $this->hasMany(\App\Models\Challenge::class, 'category_id');
+        return $this->hasMany(\App\Models\Challenge::class, 'category_id')->without('category');
     }
 
     /**
@@ -100,6 +100,6 @@ class Category extends Model
      **/
     public function files()
     {
-        return $this->hasMany(\App\Models\File::class, 'category_id');
+        return $this->hasMany(\App\Models\File::class, 'category_id')->without('category');
     }
 }
