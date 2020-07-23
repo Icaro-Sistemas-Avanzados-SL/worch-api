@@ -146,7 +146,7 @@ class User extends Authenticatable
      **/
     public function challenges()
     {
-        return $this->hasMany(\App\Models\Challenge::class, 'user_id');
+        return $this->hasMany(\App\Models\Challenge::class, 'user_id')->without('user');
     }
 
     /**
@@ -154,7 +154,7 @@ class User extends Authenticatable
      **/
     public function favourites()
     {
-        return $this->hasMany(\App\Models\Favourite::class, 'user_id');
+        return $this->hasMany(\App\Models\Favourite::class, 'user_id')->without('user');
     }
 
     /**
@@ -186,7 +186,7 @@ class User extends Authenticatable
      **/
     public function ratings()
     {
-        return $this->hasMany(\App\Models\Rating::class, 'user_id');
+        return $this->hasMany(\App\Models\Rating::class, 'user_id')->without('user');
     }
 
 
