@@ -170,7 +170,7 @@ class User extends Authenticatable
      **/
     public function followers()
     {
-        return $this->hasMany(\App\Models\Follower::class, 'followed_id')->without('followed');
+        return $this->hasMany(\App\Models\Follower::class, 'followed_id')->without('followed', 'follower');
     }
 
     /**
@@ -178,7 +178,7 @@ class User extends Authenticatable
      **/
     public function followeds()
     {
-        return $this->hasMany(\App\Models\Follower::class, 'follower_id')->without('follower');
+        return $this->hasMany(\App\Models\Follower::class, 'follower_id')->without('follower', 'followed');
     }
 
     /**
