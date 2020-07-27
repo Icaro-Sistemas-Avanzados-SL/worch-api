@@ -162,7 +162,7 @@ class User extends Authenticatable
      **/
     public function notificationsReceived()
     {
-        return $this->hasMany(\App\Models\Notification::class, 'notificated_id')->without('notificated');
+        return $this->hasMany(\App\Models\Notification::class, 'notificated_id')->without('notificated', 'notificationUser');
     }
 
     /**

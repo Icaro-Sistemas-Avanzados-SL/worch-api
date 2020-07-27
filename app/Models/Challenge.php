@@ -185,7 +185,7 @@ class Challenge extends Model
      **/
     public function user()
     {
-        return $this->belongsTo(\App\Models\User::class, 'user_id')->without('challenges', 'followers', 'followeds');
+        return $this->belongsTo(\App\Models\User::class, 'user_id')->without('challenges', 'followers', 'followeds', 'notificationsReceived');
     }
 
     /**

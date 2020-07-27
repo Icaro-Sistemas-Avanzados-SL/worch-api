@@ -123,7 +123,7 @@ class Conversation extends Model
 
     public function scopeUser($query, $user){
         if($user) {
-            $query->where('guest', $user)->orWhere('host', $user);
+            $query->orWhere('guest', $user)->orWhere('host', $user);
         }
     }
 
